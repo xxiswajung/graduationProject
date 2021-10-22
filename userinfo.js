@@ -1,20 +1,21 @@
 import { firestore } from '../firebase';
-import { useEffect } from 'react';
+import React from 'react';
 
 
-function userinfo() {
+class userinfo extends React.Component{
+    render(){
+      const bucket = firestore.collection("bucket");
 
-  useEffect(() => {
-    // bucket이라는 변수로 firestore의 collection인 bucket에 접근
-    const bucket = firestore.collection("bucket");
+      // bucket 콜렉션의 bucket_item 문서의 name 필드 duck2로 바꾸기
+      bucket.doc("bucket_item").update({ text: '수정3' });
 
-    // bucket 콜렉션의 bucket_item 문서의 name 필드 duck2로 바꾸기
-    bucket.doc("bucket_item").update({ text: '수정3' });
-  });
-
-  return (
-    <div className="userinfo">
-      firebase 확인해보기!
-    </div>
-  );
+      return (
+          <div className="userinfo">
+          firebase 확인해보기!
+          </div>
+      )
+    }
 }
+
+
+export default userinfo;
