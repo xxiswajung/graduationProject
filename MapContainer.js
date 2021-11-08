@@ -1,24 +1,31 @@
 import React, { useEffect } from 'react';
-//import { firestore } from '../../firebase';
-//import axios from "axios";
-//import { useAsync } from 'react-async';
+import { firestore } from '../../firebase';
+import axios from 'axios';
+import { useAsync } from 'react-async';
 import Home from './Home';
-//import './MapContainer.css';
+import './MapContainer.css';
+import { GestureSharp } from '@material-ui/icons';
+const { kakao } = window
 
 
-function MapContainer(){
-           
-  
-      
+
+function MapContainer({answer}){
+     
     useEffect(()=>{
-
+                  
                 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
                     mapOption = { 
                         center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
                         level: 3// 지도의 확대 레벨 
                     }; 
+                let fn=[];
 
-                const fn=["참치덮밥","짬뽕밥","회냉면"];
+                for(var tnum=0; tnum<answer.length;tnum++){
+                    fn=fn.concat(answer[tnum]);
+                   
+                }
+
+                
                
                 var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
                 var geocoder = new kakao.maps.services.Geocoder();
@@ -155,8 +162,8 @@ function MapContainer(){
         
 
     }, [])
-  
-  
+    
+   // if(user)            
     return ( 
       <div>
           <Home/>
