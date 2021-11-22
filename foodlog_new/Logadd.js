@@ -1,24 +1,3 @@
-
-/*import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-import Buttonnext from './Buttonnext';
-import Typography from '@material-ui/core/Typography';
-import { withRouter } from 'react-router-dom';
-import { BrowserRouter, Route,Link,Switch } from 'react-router-dom';
-import { button } from 'react-router-dom';
-//import Searchmenu from './Searchmenu';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import TextField from '@material-ui/core/Textfield';
-
-*/
-//import { getDatabase, ref, child, get } from "firebase/database";
 import React,{useState} from 'react';
 import { getDatabase, ref, set,child,get } from "firebase/database";
 import Todaylog from './Todaylog';
@@ -103,5 +82,3 @@ function Logadd({location}){
 }
 
 export default Logadd;
-//<Todaylog dd={data[3]} yy={data[1]} mm={data[2]}/>
-
