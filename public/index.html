@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Healthy People</title>
+    <base href="/">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#E2E2E2">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <script type="text/javascript" src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=4e9ee1ff7df506b20575f1572cd7de93&libraries=services"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"/>
+    <script defer src="/__/firebase/9.1.3/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/9.1.3/firebase-auth.js"></script>
+    <script defer src="/__/firebase/9.1.3/firebase-database.js"></script>
+    <script defer src="/__/firebase/9.1.3/firebase-firestore.js"></script>
+    <script defer src="/__/firebase/9.1.3/firebase-functions.js"></script>
+    <script defer src="/__/firebase/9.1.3/firebase-messaging.js"></script>
+    <script defer src="/__/firebase/9.1.3/firebase-storage.js"></script>
+    <script defer src="/__/firebase/9.1.3/firebase-analytics.js"></script>
+    <script defer src="/__/firebase/9.1.3/firebase-remote-config.js"></script>
+    <script defer src="/__/firebase/9.1.3/firebase-performance.js"></script>
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+
+    
+  </head>
+  <body>
+    
+    
+    <div id="root"></div>
+    <script type="text/javascript" src="App.js"></script>
+
+    
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const loadEl = document.querySelector('#load');
+    // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+    // // The Firebase SDK is initialized and available here!
+    //
+    // firebase.auth().onAuthStateChanged(user => { });
+    // firebase.database().ref('/path/to/ref').on('value', snapshot => { });
+    // firebase.firestore().doc('/foo/bar').get().then(() => { });
+    // firebase.functions().httpsCallable('yourFunction')().then(() => { });
+    // firebase.messaging().requestPermission().then(() => { });
+    // firebase.storage().ref('/path/to/ref').getDownloadURL().then(() => { });
+    // firebase.analytics(); // call to activate
+    // firebase.analytics().logEvent('tutorial_completed');
+    // firebase.performance(); // call to activate
+    //
+    // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+
+    try {
+      let app = firebase.app();
+      let features = [
+        'auth', 
+        'database', 
+        'firestore',
+        'functions',
+        'messaging', 
+        'storage', 
+        'analytics', 
+        'remoteConfig',
+        'performance',
+      ].filter(feature => typeof app[feature] === 'function');
+      loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
+    } catch (e) {
+      console.error(e);
+      loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
+    }
+  });
+</script>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+  </body>
+    
+  
+</html>
