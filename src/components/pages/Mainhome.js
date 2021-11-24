@@ -45,18 +45,18 @@ async function getUser({carbos,carboe,pros,proe,fats,fate}) {
 }
 
 
-function Mainhome({carbos,carboe,pros,proe,fats,fate,time}) {
+function Mainhome({location}) {
         
       
       const { data: users, error, isLoading } = useAsync({
         promiseFn: getUser,
-        carbos,
-        carboe,
-        pros,
-        proe,
-        fats,
-        fate,
-        watch: carbos
+        carbos : location.state.carbos,
+        carboe : location.state.carboe,
+        pros : location.state.pros,
+        proe : location.state.proe,
+        fats : location.state.fats,
+        fate : location.state.fate,
+        // watch: location.state.carbos
       });
 
       
@@ -68,7 +68,7 @@ function Mainhome({carbos,carboe,pros,proe,fats,fate,time}) {
         return(
             <div>
                 
-                <MapContainer answer={users} time={time}/>
+                <MapContainer answer={users} time={location.state.time}/>
            
             </div>
         )

@@ -1,40 +1,68 @@
-/*global kakao*/
-import React, { useEffect, useState } from 'react';
+import React, { useEffect,useState } from 'react';
 import Grid from '@material-ui/core/Grid';
-import Home from './Home';
-import { useHistory } from 'react-router';
 import moment from 'moment';
 
-function MapContainer({answer,time}){
 
-    const [getMoment, setMoment] = useState(moment())
-    const today = getMoment    
+//const { kakao } = window
 
-    let mapd=today.format('D')
-    let mapm=today.format('MM')
-    let mapy=today.format('YY')
+/*global kakao*/
 
 
-const items = answer.map(data=>{
-     return(
-     <div>
-       <ul>
-         <li style={{position:'relative',left:'10vh'}}>
-           <p>{data.name}</p>
-           <p>총 칼로리: {data.total}</p>
-           <span> 탄수화물: {data.carbo}</span>
-           <span> 단백질: {data.pro}</span>
-           <span> 지방: {data.fat}</span>
-         </li>
-       </ul>
-     </div>
-     )
-   })
+function MapContainer({answer, time}){
 
-   const history=useHistory();
+   
+ 
+  // let today= new Date();
+
+   const [getMoment, setMoment] = useState(moment())
+   const today = getMoment 
+   
+   let mapd=today.format('D')
+   let mapm=today.format('MM')
+   let mapy=today.format('YY')
+   let mylocation;
+   let items;
+   const [kindoffood, setkindoffood] = useState(-1);
+    let tmpnum=0;
+    let linum=0;
+   items = answer.map(data=>{
+    return(
+     
+    <div>
+      <ul>
+        <li style={{position:'relative'}}>
+          <p>추천 {++linum}</p>
+          <p>{data.name}</p>
+          <p>총 칼로리 : {data.total} kcal</p>
+          <span> 탄수화물 : {data.carbo} g </span>
+          <span> 단백질 : {data.pro} g  </span>
+          <span> 지방 : {data.fat} g  </span>
+        </li>
+      </ul>
+    </div>
+    )
+    
+    })
+
+  function plusclick(){
+    
+    setkindoffood(kindoffood+1);
+  
+  }
+
+  function minusclick(){
+    
+    setkindoffood(kindoffood-1);
+  
+  }
+
+ 
+  
 
     useEffect(()=>{
 
+       console.log("앤썰:"+answer);
+       
              
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
             mapOption = { 
@@ -45,20 +73,23 @@ const items = answer.map(data=>{
         console.log("length는"+answer.length);
 
         const fn=answer.map(data=>data.name);
-        console.log("fn:"+fn);
-      /*  for(var tnum=0; tnum<answer.length;tnum++){
-            fn=fn.concat(answer[tnum]);
-            
-        }*/
+        const tlist=answer.map(data=>data.total);
+        const clist=answer.map(data=>data.carbo);
+        const flist=answer.map(data=>data.fat);
+        const plist=answer.map(data=>data.pro);
+     
+
 
         
        
         var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
         var geocoder = new kakao.maps.services.Geocoder();
         var m=0;
-        var mylocation;
+     
+
         var infowindow2 = new kakao.maps.InfoWindow({zIndex:1});
 
+       
        
         if (navigator.geolocation) {
             
@@ -89,14 +120,16 @@ const items = answer.map(data=>{
                     if (status === kakao.maps.services.Status.OK) {
                     
                         mylocation=result[0].address_name;
-                       
-                       for(var n=0;n<3;n++){
-                        var ps = new kakao.maps.services.Places();
-                        ps.keywordSearch(mylocation+fn[n], placesSearchCB);
-                      
-                       }
                     }
-        };
+                    
+                        var ps = new kakao.maps.services.Places();
+                        ps.keywordSearch(mylocation+fn[kindoffood], placesSearchCB);
+                      
+                        
+        }
+        
+
+        
         // 지도에 마커와 인포윈도우를 표시하는 함수입니다
         function displayMarker(locPosition, message) {
 
@@ -123,7 +156,7 @@ const items = answer.map(data=>{
         }    
 
         // 키워드 검색 완료 시 호출되는 콜백함수 입니다
-        function placesSearchCB (data, status, pagination) {
+        function placesSearchCB (data, status,pagination) {
             if (status === kakao.maps.services.Status.OK) {
 
                 // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
@@ -131,18 +164,20 @@ const items = answer.map(data=>{
                 var bounds = new kakao.maps.LatLngBounds();
 
                 for (var i=0; i<data.length; i++) {
-                    displayMarker2(data[i],fn[m]);    
+                    console.log("충격:"+kindoffood);
+                    displayMarker2(data[i],fn[kindoffood]);    
                     bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
                 }       
-                m++;
+                //setkindoffood(kindoffood+1)
 
                 // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
                 map.setBounds(bounds);
             } 
+            
         }
 
         // 지도에 마커를 표시하는 함수입니다
-        function displayMarker2(place,showname) {
+        function displayMarker2(place,title) {
             
             // 마커를 생성하고 지도에 표시합니다
             var marker2 = new kakao.maps.Marker({
@@ -153,7 +188,7 @@ const items = answer.map(data=>{
             // 마커에 클릭이벤트를 등록합니다
             kakao.maps.event.addListener(marker2, 'mouseover', function() {
                 // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
-               displayInfowindow(marker2,showname,place);
+               displayInfowindow(marker2,place,title);
               
             });
            
@@ -179,34 +214,46 @@ const items = answer.map(data=>{
             }    
         }
 
-        function displayInfowindow(marker, title,place) {
-            var ktitle=encodeURI(title,"UTF-8");
+        function displayInfowindow(marker,place,ftitle) {
+            var ktitle=encodeURI(ftitle,"UTF-8");
             var content ='<div>'+ place.place_name+'</div>';
-            content+='<div><a href="/#/logadd?'+ktitle+'/'+mapy+'/'+mapm+'/'+mapd+'/'+time+'">' + title + '</a></div>';
+            content+='<div><a href="/#/logadd?'+ktitle+'/'+mapy+'/'+mapm+'/'+mapd+'/'+time+'/'+plist[kindoffood]+'/'+ clist[kindoffood]+'/'+ flist[kindoffood]+'/'+ tlist[kindoffood]+'">' +ftitle+'</a></div>';
            
             infowindow2.setContent(content);
             infowindow2.open(map, marker);
-           // kakao.maps.event.addListener1(infowindow2, 'click',goTodaylog());
+           
         }
 
-       /*
-        function goTodaylog(showname){
-          //history.push('#/diary/Todaylog'); 
-          
-           location.href="#/diary/Todaylog?"+showname
-          // alert("qk");
-        }*/
 
-}, [])
+}, [kindoffood])
+
+    
 
       
         return ( 
 
 
        <div>
-           <Home/>
-            <div id="map" style={{width:"100%", height:"1000px"}}></div>
+           
+            <Grid container spacing={3}>
+                
+                <Grid item xs={7}>
+               
+                <div id="map" style={{width:"100%", height:"1000px"}}></div>
+                
 
+                </Grid>
+                <Grid item xs={5}>
+                    <button onClick={minusclick}>{"<"}</button>
+                    <span> 추천 { kindoffood+1} 음식점 찾기</span>
+                    <button onClick={plusclick}>{">"}</button>
+                  
+                    <div>{items}</div>
+                  
+                        
+                     
+                </Grid>
+            </Grid>
         </div>
         );
 

@@ -31,13 +31,6 @@ function Logadd({location}){
             });
         }
 
-        function writeUserData2(fooddata,y,m,d,e) { //음식기록 -> 테스트용 함수 나중에 꼭 지우고, if문의 함수 고쳐야함
-            const db = getDatabase();
-            set(ref(db, 'flog/'+user.uid+'/'+y+'/'+m+'/'+d+'/'+e+'/foodis'), {
-                name: fooddata
-            });
-        }
-
         function updatenutriData(y,m,d,foodpro,foodcarbo,foodfat/*,foodtotal*/) {//total 수정
             const db = getDatabase();
             set(ref(db, 'flog/user1/'+y+'/'+m+'/'+d+'/total_nutri'), {
@@ -51,7 +44,7 @@ function Logadd({location}){
             var temp=location.search.split("?");
             var data=temp[1].split("/");
             var chatChannelId = decodeURI(data[0]);
-            writeUserData2(chatChannelId,data[1],data[2],data[3],data[4]);
+            writeUserData(chatChannelId,data[1],data[2],data[3],data[4],parseFloat(data[5]),parseFloat(data[6]),parseFloat(data[7]),parseFloat(data[8]));
         }else if(location.state==null){//그냥 바로 페이지 클릭시
         
            

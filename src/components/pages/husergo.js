@@ -169,7 +169,7 @@ export default function HuserGo() {
       callback()
       console.log("meal은 "+meal)
       console.log("carboe는" +carboe);
-    }, 500)
+    }, 50)
   }
 
   function step2(){
@@ -180,7 +180,7 @@ export default function HuserGo() {
       setPros(parseInt(meal*0.07/4))
       setFate(parseInt(meal*0.25/9))
       setFats(parseInt(meal*0.15/9))
-    },1000)
+    },100)
   }
 
   // async function onChoose() {
@@ -259,8 +259,8 @@ export default function HuserGo() {
         <Text><b>{"\n"}</b></Text>
         <List><b>지금 먹을 건,</b></List> 
         <InputR
-          id="breakfast"
-          value="breakfast"
+          id="morning"
+          value="morning"
           name="time"
           type="radio"
           checked={time==="morning"}
@@ -288,14 +288,19 @@ export default function HuserGo() {
         <Text>{"\n"}</Text>
         <Button type="button" onClick={onShow}> 칼로리 확인하기 </Button>
         {huserRecom(user.uid,recom)}
-        <BrowserRouter> 
-        <Route path='/mainhome' component={() => <Mainhome carbos={carbos} carboe={carboe} pros={pros} proe={proe} fats={fats} fate={fate} time={time}/> }/>
-            <Button onClick={step1(step2)}> <Link to='/mainhome'> 지도에서 확인</Link></Button>
-        </BrowserRouter>
-        {/* <Button type="button" onClick={step1(step2)}> 
-          <Link to={{pathname:'./mainhome', state:{carbos:carbos, carboe:carboe, pros:pros, proe:proe, fats:fats, fate:fate}}}>음식 추천받기</Link>
-        </Button> */}
-        {/* <Button type="button" onClick={step1(step2)}> 지도에서 확인 </Button>   */}
+        {step1(step2)}
+        <Button> <Link to={{
+          pathname: '/mainhome',
+          state: {
+            carbos: carbos,
+            carboe: carboe,
+            pros: pros,
+            proe: proe,
+            fats: fats, 
+            fate: fate,
+            time: time
+          }
+        }}>지도에서 확인</Link></Button>
         <Text>{"\n"}</Text>
         <Recom><Text>We recommend you to try this daily intake calories!  </Text>
         <Text> <b> {recom} kcal </b> </Text></Recom>

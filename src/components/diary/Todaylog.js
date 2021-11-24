@@ -9,32 +9,20 @@ import Grid from '@material-ui/core/Grid';
 import Chart from './Chart';
 import styled from 'styled-components';
 
-const Typo = styled.div`
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      /* width: 100%;
-      height: 100%; */
-      margin: 0 auto;
-      justify-content: center;
-      align-content: center;
-      /*display: inline-block;*/
-      /* text-align: left; */
-      font-family: 'Noto Sans KR';
-      font-size: 12px;
-  `;
 
-const List = styled.div`
-  width: 600px;
-  height: 100px;
-  margin: 50px 0;
+const List = styled.div`    
+  margin: 10px 0;
+  font-size: 20px;
+  font-weight: bold;
+  color: #323232;
+  letter-spacing: -3px;
 `; 
 
 const Button = styled.button`
     width: 60px;
-    float: right;
-    // margin: 10px 0;
+    margin-left: 900px;
+    justify-content: center;
+    align-content: center;
     border: 1px solid seagreen;
     background-color: rgba(0,0,0,0);
     color: seagreen;
@@ -45,10 +33,10 @@ const Button = styled.button`
     }
   `;
 
-  const Button2 = styled.button`
+const Button2 = styled.button`
   width: 80px;
   float: right;
-  // margin: 10px 0;
+  margin: 10px 0;
   border: 1px solid seagreen;
   background-color: rgba(0,0,0,0);
   color: seagreen;
@@ -57,6 +45,10 @@ const Button = styled.button`
     color: white;
     background-color: seagreen;
   }
+`;
+
+const Set = styled.div`
+  top:50%;
 `;
 
 function Todaylog({dd,yy,mm}){
@@ -162,76 +154,60 @@ function Todaylog({dd,yy,mm}){
 
     return (
         <div>
-                   <Typography variant="h5" component="h2"> 20{yy}년 {mm}월 {dd}일</Typography>
-                   <Link to='./calendar'>
-                                    <button> 달력 </button>
-                    </Link>
-                   <Grid container spacing={3}>
-        
+                   <Typography align="center" variant="h5"> 20{yy}년 {mm}월 {dd}일  </Typography>
+                   <Button><Link to ="/calendar">달력</Link></Button>
+                   <Grid container spacing={4}>
                         <Grid item xs={6}>
                         <Card>
                             <CardContent>
-            
-                                <Typography variant="h5" component="h2">
-                                    아침 
-                                    
-                                </Typography>
+                                    <List>아침</List>
+                                    <Button2><Link to={ {pathname:'./searchfood', state:{meal:"morning", yy:yy, dd:dd, mm:mm }}}>음식추가</Link></Button2>
                                     <p>{Mfoodis}</p>
-                                    <span> 총열량: {Mfoodtis}</span>
-                                    <span> 탄수화물: {Mfoodcis}</span>
-                                    <span> 단백질: {Mfoodpis}</span>
-                                    <span> 지방: {Mfoodfis}</span>
-                               
-                                        <ul>
-                                            <button><Link to={ {pathname:'./searchfood', state:{meal:"morning", yy:yy, dd:dd, mm:mm }}}>음식추가</Link></button>
-                                        </ul>
-                               
+                                    <span> 총열량: {Mfoodtis} kcal</span>
+                                    <span> 탄수화물: {Mfoodcis} g</span>
+                                    <span> 단백질: {Mfoodpis} g</span>
+                                    <span> 지방: {Mfoodfis} g</span>
                             </CardContent>
                         </Card>
                         <Card>
                             <CardContent>
-                                점심
+                                <List>점심</List>
+                                <Button2><Link to={ {pathname:'./searchfood', state:{meal:"lunch", yy:yy, dd:dd, mm:mm}}}>음식추가</Link></Button2>
                                 <p>{Lfoodis}</p>
-                                <span> 총열량: {Lfoodtis}</span>
-                                <span> 탄수화물: {Lfoodcis}</span>
-                                <span> 단백질: {Lfoodpis}</span>
-                                <span> 지방: {Lfoodfis}</span>
-                                   
-                                        <ul>
-                                            <button><Link to={ {pathname:'./searchfood', state:{meal:"lunch", yy:yy, dd:dd, mm:mm}}}>음식추가</Link></button>
-                                        </ul>
+                                <span> 총열량: {Lfoodtis} kcal</span>
+                                <span> 탄수화물: {Lfoodcis} g</span>
+                                <span> 단백질: {Lfoodpis} g</span>
+                                <span> 지방: {Lfoodfis} g</span>
                             </CardContent>
                         </Card>
                         <Card>
                             <CardContent>
-                                저녁
+                                <List>저녁</List>
+                                <Button2><Link to={ {pathname:'./searchfood', state:{meal:"dinner", yy:yy, dd:dd, mm:mm}}}>음식추가</Link></Button2>
                                 <p>{Dfoodis}</p>
-                                <span> 총열량: {Dfoodtis}</span>
-                                <span> 탄수화물: {Dfoodcis}</span>
-                                <span> 단백질: {Dfoodpis}</span>
-                                <span> 지방: {Dfoodfis}</span>
-                                    
-                                        <ul>
-                                            <button><Link to={ {pathname:'./searchfood', state:{meal:"dinner", yy:yy, dd:dd, mm:mm}}}>음식추가</Link></button>
-                                        </ul>
+                                <span> 총열량: {Dfoodtis} kcal</span>
+                                <span> 탄수화물: {Dfoodcis} g</span>
+                                <span> 단백질: {Dfoodpis} g</span>
+                                <span> 지방: {Dfoodfis} g</span>
                             </CardContent>
                         </Card>
                         
                         </Grid>
                         <Grid item xs={6}>
-                          
-                        <svg viewBox="0 0 100 100" width="30%" height="50%">
+                        <Set>
+                        <svg viewBox="0 -10 100 200" width="30%" height="40%">
                             <Chart per={carper} nut={"탄수화물"} nutcolor={"#9ac6ff"}/>
                             <p>탄수화물</p>
                         </svg>
-                        <svg viewBox="0 0 100 100" width="30%" height="50%">
+                        <svg viewBox="0 -10 100 200" width="30%" height="40%">
                             <Chart per={proper} nut={"단백질"} nutcolor={"#9ac6ff"}/>
                         </svg>
-                        <svg viewBox="0 0 100 100" width="30%" height="50%">
+                        <svg viewBox="0 -10 100 200" width="30%" height="40%">
                             <Chart per={fatper} nut={"지방"} nutcolor={"#9ac6ff"}/>
                         </svg>
-                                                
+                           </Set>                     
                         </Grid>
+
                     </Grid>
                 
         

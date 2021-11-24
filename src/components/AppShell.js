@@ -44,13 +44,18 @@ class AppShell extends React.Component{
                     </AppBar>
                     <Drawer open={this.state.toggle}>
                         <MenuItem onClick={this.handleDrawerToggle}>
-                            <Link component={RouterLink} to="/home">
+                            <Link component={RouterLink} to="/main">
                                 Home
                             </Link>
                         </MenuItem>
                         <MenuItem onClick={this.handleDrawerToggle}>
                             <Link component={RouterLink} to="/huser">
                                 User Info
+                            </Link>
+                        </MenuItem>
+                        <MenuItem onClick={this.handleDrawerToggle}>
+                            <Link component={RouterLink} to="/husergo">
+                                Get Recommendation
                             </Link>
                         </MenuItem>
                         <MenuItem onClick={this.handleDrawerToggle}>

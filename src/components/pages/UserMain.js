@@ -82,6 +82,8 @@ const UserMain = () => {
                 {"    |    "}
                 <Link to="/home">{"🔍주변에서 음식 검색하기"}</Link>
                 {"    |    "}
+                <Link to="/calendar">{"📜식단 확인하기"}</Link>
+                {"    |    "}
                 <Link to="/" onClick={onLogOutClick}>{"🙋🙋‍♂️로그아웃"}</Link>
             </Menu>
         </Div>  
